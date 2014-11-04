@@ -1,6 +1,6 @@
 # MPI Cluster Vagrantfile
 
-This is a Vagrantfile (to be used with Hashicorp's
+This is a Vagrantfile (to be used with HashiCorp's
 [Vagrant](https://vagrantcloud.com/) tool) for automatically bringing up
 a cluster suitable for testing MPI loads.
 

@@ -5,7 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 # choose how many machines the cluster will contain
-N_VMS = 3
+N_VMS = 4
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
