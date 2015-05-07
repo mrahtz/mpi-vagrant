@@ -24,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   hosts_file = []
-  (1..N_VMS).each do |i|
+  1.upto(N_VMS) do |i|
     config.vm.define vm_name = "node#{i}" do |config|
       config.vm.hostname = vm_name
       ip = "192.168.0.#{100+i}"
@@ -41,7 +41,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       for i in {1..N_VMS}; do
         ip="192.168.0.$((100+i))"
         echo "$ip node$i" >> /etc/hosts
-
       done
       wget -q https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant -O id_rsa
       install -m 600 -o vagrant -g vagrant id_rsa /home/vagrant/.ssh/
