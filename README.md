@@ -28,10 +28,9 @@ cluster:
 ```
 mpirun -np 3 --host node1,node2,node3 hostname
 ```
-OpenMPI will try to use all networks it thinks are common
-to all hosts, including Vagrant's host-only networks. This will
-break any MPI jobs which attempt to actually do any communication.
-To  work around this, you should tell `mpirun` explicitly
+Note that OpenMPI will try to use all networks it thinks are common
+to all hosts for any inter-node communication, including Vagrant's
+host-only networks. To work around this, you should tell `mpirun` explicitly
 which networks to use:
 ```
 mpirun -np 3 --host node1,node2,node3 --mca btl_tcp_if_include 192.168.0.0/24 hostname
