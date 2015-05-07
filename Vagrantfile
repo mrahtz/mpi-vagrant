@@ -42,9 +42,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ip="192.168.0.$((100+i))"
         echo "$ip node$i" >> /etc/hosts
       done
-      wget -q https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant -O id_rsa
-      install -m 600 -o vagrant -g vagrant id_rsa /home/vagrant/.ssh/
-      sudo apt-get -y install openmpi1.5-bin libopenmpi1.5-dev
+
+      # we only generate the key on one of the nodes
+      if [[ ! -e /vagrant/id_rsa ]]; then
+        ssh-keygen -t rsa -f /vagrant/id_rsa -N ""
+      fi
+      install -m 600 -o vagrant -g vagrant /vagrant/id_rsa /home/vagrant/.ssh/
+      cat /vagrant/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
+      apt-get -y update
+      apt-get -y install openmpi1.5-bin libopenmpi1.5-dev
       touch /etc/.provisioned
     fi
   SCRIPT
