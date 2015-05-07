@@ -13,26 +13,26 @@ Currently only works with the VirtualBox provider.
 
 In your checkout directory, simply run:
 ```
-vagrant up
+$ vagrant up
 ```
 By default, the cluster will be made of 3 VMs. If you want more,
 change `N_VMS` in the `Vagrantfile`.
 
 The VMs will be named `node1` through `node<n>`. To SSH to, say, `node1`:
 ```
-vagrant ssh node1
+$ vagrant ssh node1
 ```
 
 As a simple sanity check, try running `hostname` on each machine in the
 cluster:
 ```
-mpirun -np 3 --host node1,node2,node3 hostname
+vagrant@node1:~$ mpirun -np 3 --host node1,node2,node3 hostname
 ```
 Note that OpenMPI will try to use all networks it thinks are common
 to all hosts for any inter-node communication, including Vagrant's
 host-only networks. To work around this, you should tell `mpirun` explicitly
 which networks to use:
 ```
-mpirun -np 3 --host node1,node2,node3 --mca btl_tcp_if_include 192.168.0.0/24 hostname
+vagrant@node1:~$ mpirun -np 3 --host node1,node2,node3 --mca btl_tcp_if_include 192.168.0.0/24 hostname
 ```
 For more detail, see http://www.open-mpi.org/faq/?category=tcp#tcp-selection.
