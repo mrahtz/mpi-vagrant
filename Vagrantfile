@@ -17,12 +17,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.network "private_network", type: "dhcp"
 
-  if Vagrant.has_plugin?("vagrant-proxyconf")
-    config.proxy.http     = "http://cache1a.internal.sanger.ac.uk:3128/"
-    config.proxy.https    = "https://cache1a.internal.sanger.ac.uk:3128/"
-    config.proxy.no_proxy = "localhost,127.0.0.1"
-  end
-
   hosts_file = []
   1.upto(N_VMS) do |i|
     config.vm.define vm_name = "node#{i}" do |config|
